@@ -49,7 +49,7 @@ final class ShippingAction implements ActionInterface, ApiAwareInterface
         $waybills = $data['waybillNoInfoList'] ?? [];
         $number = (string) ($waybills[0]['waybillNo'] ?? '');
         if ('' === $number) {
-            throw new CarrierException('sf-express', 'SF Express issued no waybill.');
+            throw new CarrierException('sf_express', 'SF Express issued no waybill.');
         }
         $content = null;
         $url = null;
@@ -62,7 +62,7 @@ final class ShippingAction implements ActionInterface, ApiAwareInterface
             }
         } catch (CarrierException) {
         }
-        $request->setResult(new Label('sf-express', $number, $content, Label::PDF, $url, 'https://www.sf-express.com/chn/sc/waybill/waybill-detail/'.rawurlencode($number)));
+        $request->setResult(new Label('sf_express', $number, $content, Label::PDF, $url, 'https://www.sf-express.com/chn/sc/waybill/waybill-detail/'.rawurlencode($number)));
     }
 
     private static function contact(Address $a, int $type): array

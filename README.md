@@ -8,8 +8,8 @@ API. Prices come from configuration (`rates`): SF quotes by contract.
 ```yaml
 omnibus:
     gateways:
-        sf-express:
-            factory: sf-express
+        sf_express:
+            factory: sf_express
             options:
                 partner_id: '%env(SF_PARTNER_ID)%'      # 顾客编码
                 checkword: '%env(SF_CHECKWORD)%'        # 校验码

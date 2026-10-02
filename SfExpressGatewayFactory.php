@@ -25,7 +25,7 @@ final class SfExpressGatewayFactory extends GatewayFactory
     protected function populateConfig(Config $config): void
     {
         $config->defaults([
-            'omnibus.factory_name' => 'sf-express',
+            'omnibus.factory_name' => 'sf_express',
             'omnibus.factory_title' => 'SF Express',
             'omnibus.required_options' => ['partner_id', 'checkword'],
             'monthly_card' => null,

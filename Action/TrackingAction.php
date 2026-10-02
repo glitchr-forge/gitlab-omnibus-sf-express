@@ -37,7 +37,7 @@ final class TrackingAction implements ActionInterface, ApiAwareInterface
             $events[] = new TrackingEvent(new \DateTimeImmutable((string) ($route['acceptTime'] ?? 'now'), new \DateTimeZone('Asia/Shanghai')), self::status($route['opCode'] ?? null, $route['remark'] ?? null), (string) ($route['remark'] ?? ''), $route['acceptAddress'] ?? null, $route['opCode'] ?? null);
         }
         usort($events, static fn (TrackingEvent $a, TrackingEvent $b) => $a->at <=> $b->at);
-        $request->setResult(new TrackingModel('sf-express', $request->trackingNumber, $events ? $events[array_key_last($events)]->status : TrackingStatus::UNKNOWN, $events));
+        $request->setResult(new TrackingModel('sf_express', $request->trackingNumber, $events ? $events[array_key_last($events)]->status : TrackingStatus::UNKNOWN, $events));
     }
 
     private static function status(?string $code, ?string $remark): TrackingStatus

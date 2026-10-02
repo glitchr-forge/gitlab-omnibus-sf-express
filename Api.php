@@ -46,20 +46,20 @@ final class Api
             $status = $response->getStatusCode();
             $envelope = json_decode($response->getContent(false), true);
         } catch (HttpExceptionInterface|\JsonException $e) {
-            throw new CarrierException('sf-express', 'SF Express request failed: '.$e->getMessage(), null, $e);
+            throw new CarrierException('sf_express', 'SF Express request failed: '.$e->getMessage(), null, $e);
         }
         if ($status >= 400 || !\is_array($envelope)) {
-            throw new CarrierException('sf-express', sprintf('SF Express answered HTTP %d.', $status));
+            throw new CarrierException('sf_express', sprintf('SF Express answered HTTP %d.', $status));
         }
         if ('A1000' !== ($envelope['apiResultCode'] ?? null)) {
-            throw new CarrierException('sf-express', (string) ($envelope['apiErrorMsg'] ?? 'SF Express refused the call.'), isset($envelope['apiResultCode']) ? (string) $envelope['apiResultCode'] : null);
+            throw new CarrierException('sf_express', (string) ($envelope['apiErrorMsg'] ?? 'SF Express refused the call.'), isset($envelope['apiResultCode']) ? (string) $envelope['apiResultCode'] : null);
         }
         $result = json_decode((string) ($envelope['apiResultData'] ?? '{}'), true);
         if (!\is_array($result)) {
-            throw new CarrierException('sf-express', 'SF Express answered with a result that is not JSON.');
+            throw new CarrierException('sf_express', 'SF Express answered with a result that is not JSON.');
         }
         if (isset($result['success']) && !$result['success']) {
-            throw new CarrierException('sf-express', (string) ($result['errorMsg'] ?? 'SF Express refused the request.'), isset($result['errorCode']) ? (string) $result['errorCode'] : null);
+            throw new CarrierException('sf_express', (string) ($result['errorMsg'] ?? 'SF Express refused the request.'), isset($result['errorCode']) ? (string) $result['errorCode'] : null);
         }
 
         return $result['msgData'] ?? $result;
